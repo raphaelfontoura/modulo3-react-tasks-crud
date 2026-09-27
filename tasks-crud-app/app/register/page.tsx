@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FormRegister } from "../components/FormRegister";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 
 export default function Cadastro() {
@@ -41,7 +42,13 @@ export default function Cadastro() {
             if (!res.ok) {
                 return register.message;
             }
-            
+            const cookieStore = await cookies();
+            cookieStore.set("token", register.token, {
+                httpOnly: true,
+                secure: true,
+                path: '/',
+                maxAge: 60 * 60 * 24,
+            })
         } catch {
             console.error("handleRegister failed");
             return "Houston, we have a problem! Erro no Cadastro."
