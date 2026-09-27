@@ -1,5 +1,5 @@
 import Link from "next/link";
-import FormRegister from "../components/FormRegister";
+import { FormRegister } from "../components/FormRegister";
 import { redirect } from "next/navigation";
 
 
@@ -41,11 +41,12 @@ export default function Cadastro() {
             if (!res.ok) {
                 return register.message;
             }
-            redirect("/tasks");
+            
         } catch {
             console.error("handleRegister failed");
             return "Houston, we have a problem! Erro no Cadastro."
         }
+        redirect("/tasks");
     }
 
     return (
