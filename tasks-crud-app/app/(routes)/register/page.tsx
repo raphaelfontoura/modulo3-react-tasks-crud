@@ -3,6 +3,8 @@ import { FormRegister } from "../../components/FormRegister";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { Metadata } from "next";
+import { checkInvalidEmail, checkInvalidPassword } from "@/lib/utils";
+import { COOKIE } from "@/constants/constants";
 
 const PAGE_TITLE = "Cadastro";
 
@@ -23,10 +25,10 @@ export default function Cadastro() {
             return "Preencha todos os campos";
         }
 
-        if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+        if (checkInvalidEmail(email)) {
             return "Email inválido";
         }
-        if (password.length < 6) {
+        if (checkInvalidPassword(password)) {
             return "A senha precisa ter no mínimo 6 caracteres."
         }
 
@@ -49,12 +51,7 @@ export default function Cadastro() {
                 return register.message;
             }
             const cookieStore = await cookies();
-            cookieStore.set("token", register.token, {
-                httpOnly: true,
-                secure: true,
-                path: '/',
-                maxAge: 60 * 60 * 24,
-            })
+            cookieStore.set("token", register.token, COOKIE);
         } catch {
             console.error("handleRegister failed");
             return "Houston, we have a problem! Erro no Cadastro."
