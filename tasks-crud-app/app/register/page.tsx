@@ -2,7 +2,13 @@ import Link from "next/link";
 import { FormRegister } from "../components/FormRegister";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { Metadata } from "next";
 
+const PAGE_TITLE = "Cadastro";
+
+export const metadata: Metadata = {
+    title: PAGE_TITLE,
+};
 
 export default function Cadastro() {
 
@@ -58,7 +64,7 @@ export default function Cadastro() {
 
     return (
         <div className="grid gap-y-4 min-w-100 px-8 py-12 bg-[#fcfcfc] rounded-3xl shadow-xl">
-            <h1 className="text-4xl text-center font-bold">Cadastro</h1>
+            <h1 className="text-4xl text-center font-bold">{PAGE_TITLE}</h1>
             <FormRegister action={handleRegister} />
             <Link className="text-center underline" href="/login">Já tenho cadastro</Link>
         </div>
