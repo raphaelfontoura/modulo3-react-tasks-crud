@@ -1,4 +1,4 @@
-import { FormLogin } from "@/app/components/FormLogin";
+import { FormLogin } from "@/app/components/forms/FormLogin";
 import { COOKIE } from "@/constants/constants";
 import { checkInvalidEmail, checkInvalidPassword } from "@/lib/utils";
 import { Metadata } from "next";

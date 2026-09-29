@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FormRegister } from "../../components/FormRegister";
+import { FormRegister } from "../../components/forms/FormRegister";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { Metadata } from "next";

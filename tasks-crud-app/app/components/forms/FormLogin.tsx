@@ -1,17 +1,16 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { FormInput } from "./FormInput";
-import { FormInputPassword } from "./FormInputPassword";
-import { FormButton } from "./FormButton";
-import { FormError } from "./FormError";
+import { FormInput } from "../FormInput";
+import { FormInputPassword } from "../FormInputPassword";
+import { FormButton } from "../FormButton";
+import { FormError } from "../FormError";
 
-type FormRegisterProps = {
+type FormLoginProps = {
     action: (previousState: string, formData: FormData) => Promise<string> | string;
 };
 
-export const FormRegister = ({ action }: FormRegisterProps) => {
-    const [username, setUsername] = useState("");
+export const FormLogin = ({ action }: FormLoginProps) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false)
@@ -26,12 +25,7 @@ export const FormRegister = ({ action }: FormRegisterProps) => {
                 <FormError errorMessage={errorMessage} />
             }
             <form className="grid gap-y-6" action={formAction}>
-                <FormInput
-                    id="username"
-                    label="Usuário"
-                    value={username}
-                    setValue={setUsername}
-                />
+                
                 <FormInput
                     id="email"
                     label="Email"
@@ -47,7 +41,7 @@ export const FormRegister = ({ action }: FormRegisterProps) => {
                     setVisible={setShowPassword}
                 />
                 
-                <FormButton>Cadastrar</FormButton>
+                <FormButton>Login</FormButton>
 
             </form>
         </>
