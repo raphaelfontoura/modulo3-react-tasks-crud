@@ -38,4 +38,5 @@ body {
 
 header {
     background-color: #fdfcfc;
+    z-index: 10;
 }
