@@ -3,7 +3,7 @@ import { fetchWithToken } from "@/lib/fetchWithToken";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { handleCompleteTask, handleCreateTask } from "./actions";
+import { handleCompleteTask, handleCreateTask, handleDeleteTask } from "./actions";
 import { TaskCard } from "@/app/components/TaskCard";
 
 const PAGE_TITLE = "Tasks";
@@ -54,7 +54,9 @@ export default async function Tasks() {
                         key={task._id}
                         taskId={task._id}
                         completed={task.completed}
-                        completeAction={handleCompleteTask}>
+                        completeAction={handleCompleteTask}
+                        deleteAction={handleDeleteTask}
+                    >
                         {task.title}
                     </TaskCard>
                 ))}

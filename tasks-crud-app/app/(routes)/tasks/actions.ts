@@ -55,6 +55,9 @@ export const handleCompleteTask = async (formData: FormData) => {
     }
 
     try {
+        const completed = formData.get("completed");
+        const endpoint = completed !== null ? "complete" : "uncomplete";
+
         const cookieStore = await cookies();
         const token = cookieStore.get("token")?.value;
 
@@ -64,7 +67,7 @@ export const handleCompleteTask = async (formData: FormData) => {
         }
 
         const res = await fetchWithToken(
-            `${process.env.BACKEND_URL}/tasks/${id}/complete`,
+            `${process.env.BACKEND_URL}/tasks/${id}/${endpoint}`,
             token,
             {
                 method: 'PUT',
@@ -79,6 +82,45 @@ export const handleCompleteTask = async (formData: FormData) => {
 
     } catch {
         console.error("handleCompleteTask failed");
+        return;
+    }
+};
+
+export const handleDeleteTask = async (formData: FormData) => {
+
+    const id = formData.get('id')?.toString();
+
+    if (!id) {
+        console.error("Id da task não informado");
+        return;
+    }
+
+    try {
+
+        const cookieStore = await cookies();
+        const token = cookieStore.get("token")?.value;
+
+        if (!token) {
+            console.error("Token não encontrado");
+            return;
+        }
+
+        const res = await fetchWithToken(
+            `${process.env.BACKEND_URL}/tasks/${id}`,
+            token,
+            {
+                method: 'DELETE',
+            });
+        const data = await res.json();
+        if (!res.ok) {
+            console.error(data.message ?? "Erro ao deletar a Task.");
+            return;
+        }
+
+        updateTag("get-tasks");
+
+    } catch {
+        console.error("handleDeleteTask failed");
         return;
     }
 };
