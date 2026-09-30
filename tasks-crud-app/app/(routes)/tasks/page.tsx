@@ -49,17 +49,19 @@ export default async function Tasks() {
             <FormTasks action={handleCreateTask} />
 
             <ul className="grid gap-y-3">
-                {tasks.reverse().map((task) => (
-                    <TaskCard
-                        key={task._id}
-                        taskId={task._id}
-                        completed={task.completed}
-                        completeAction={handleCompleteTask}
-                        deleteAction={handleDeleteTask}
-                    >
-                        {task.title}
-                    </TaskCard>
-                ))}
+                {tasks.reverse()
+                    .sort((a, b) => !a.completed && b.completed ? -1 : 0)
+                    .map((task) => (
+                        <TaskCard
+                            key={task._id}
+                            taskId={task._id}
+                            completed={task.completed}
+                            completeAction={handleCompleteTask}
+                            deleteAction={handleDeleteTask}
+                        >
+                            {task.title}
+                        </TaskCard>
+                    ))}
             </ul>
         </>
 
